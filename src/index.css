@@ -16,7 +16,10 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
+[lang="sk"] {
+  direction: ltr;
+  text-align: left;
+}
 @keyframes slideUp {
   from { 
     transform: translateY(20px);

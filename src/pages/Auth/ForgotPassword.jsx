@@ -17,25 +17,25 @@ export default function ForgotPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) {
-      setError(t('forgotPassword.emailRequired'));
+      setError(t('forgotPasswordEmailRequired'));  
       return;
     }
 
     try {
       setLoading(true);
       await resetPassword(email);
-      setMessage(t('forgotPassword.resetSent'));
+      setMessage(t('Password Reset Check Your Email'));  // Updated
       setError('');
     } catch (err) {
       switch (err.code) {
         case 'auth/user-not-found':
-          setError(t('forgotPassword.userNotFound'));
+          setError(t('User Not Found'));  // Updated
           break;
         case 'auth/invalid-email':
-          setError(t('forgotPassword.invalidEmail'));
+          setError(t('Invalid Email'));  // Updated
           break;
         default:
-          setError(t('forgotPassword.generalError'));
+          setError(t('General Error'));  // Updated
       }
     } finally {
       setLoading(false);
@@ -56,7 +56,7 @@ export default function ForgotPassword() {
         <div className="p-6 space-y-6">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-              {t('forgotPassword.title')}
+              {t('Forgot Password')}  
             </h2>
             <button
               onClick={() => navigate('/')}
@@ -81,7 +81,7 @@ export default function ForgotPassword() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-1">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('forgotPassword.email')}
+                  {t('Enter Email')} 
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -89,7 +89,7 @@ export default function ForgotPassword() {
                   </div>
                   <input
                     type="email"
-                    placeholder={t('forgotPassword.emailPlaceholder')}
+                    placeholder={t('Enter Your Email')}  
                     className="w-full pl-10 p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -107,15 +107,15 @@ export default function ForgotPassword() {
                     : 'bg-gradient-to-r from-blue-600 to-green-500 text-white hover:from-blue-700 hover:to-green-600'
                 }`}
               >
-                {loading ? t('forgotPassword.loading') : t('forgotPassword.submitButton')}
+                {loading ? t('Loading') : t('Submit')}  
               </button>
             </form>
           )}
 
           <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-            {t('forgotPassword.rememberPassword')}{' '}
+            
             <Link to="/login" className="text-blue-600 dark:text-blue-400 hover:underline">
-              {t('forgotPassword.loginLink')}
+              {t('Remember Password')}  
             </Link>
           </p>
         </div>

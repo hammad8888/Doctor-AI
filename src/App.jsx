@@ -11,9 +11,14 @@ import ErrorBoundary from './components/Common/ErrorBoundary';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import './i18n';
 
+function LoadingFallback() {
+  const { t } = useTranslation();
+  return <div>{t('common.loading')}</div>;
+}
+
 export default function App() {
   return (
-    <Suspense fallback="Loading...">
+    <Suspense fallback={<LoadingFallback />}>
       <Router>
         <AuthProvider>
           <ErrorBoundary>

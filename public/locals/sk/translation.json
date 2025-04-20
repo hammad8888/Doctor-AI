@@ -1,0 +1,125 @@
+{
+  "homepage": {
+      "newChatTitle": "Nový rozhovor",
+      "chatDeleted": "Chat bol úspešne odstránený",
+      "welcomeUser": "Vitajte v DoctorAI",
+      "welcomeGuest": "Vitajte hosť",
+      "subtitle": "Začnite novú konverzáciu s naším lekárom AI a získajte lekársku pomoc.",
+      "newChatButton": "Začať nový rozhovor"
+  },
+  "settings": {
+    "title": "Nastavenia",
+    "general": "Všeobecné",
+    "account": "Účet",
+    "language": "Jazyk",
+    "theme": "Téma",
+    "logout": "Odhlásiť sa",
+    "clearChats": "Vymazať všetky konverzácie",
+    "deleteAccount": "Odstrániť účet",
+    "dangerZone": "Nebezpečná zóna",
+    "guest": "Hosť",
+    "guestEmail": "hosp@example.com",
+    "languageChanged": "Jazyk bol zmenený",
+    "languageError": "Zmena jazyka zlyhala",
+    "confirmClearChats": "Naozaj chcete vymazať všetky konverzácie? Túto akciu nie je možné vrátiť späť.",
+    "confirmDeleteAccount": "Naozaj chcete odstrániť účet? Túto akciu nie je možné vrátiť späť.",
+    "chatsDeleted": "Všetky konverzácie boli vymazané",
+    "deleteError": "Odstránenie účtu zlyhalo"
+  },
+  "specializations": {
+    "general_practice": "Všeobecné lekárstvo",
+    "pediatrics": "Pediatria",
+    "cardiology": "Kardiológia",
+    "dermatology": "Dermatológia",
+    "neurology": "Neurológia",
+    "orthopedics": "Ortopédia",
+    "psychiatry": "Psychiatria",
+    "endocrinology": "Endokrinológia",
+    "gastroenterology": "Gastroenterológia",
+    "ophthalmology": "Oftalmológia"
+  },
+  "sidebar": {
+    "noChats": "Žiadne konverzácie. Začnite novú!",
+    "exitGuest": "Ukončiť hosťovský režim",
+    "saveChats": "Prihláste sa pre uloženie",
+    "switchGuest": "Prepnúť na hosťa"
+  },
+  "errorBoundary": {
+    "title": "Niečo sa pokazilo",
+    "returnHome": "Návrat na domovskú stránku"
+  },
+  "chatbot": {
+    "welcomeMessage": "Ako vám dnes môžem pomôcť?",
+    "promptMessage": "Opýtajte sa ma na čokoľvek ohľadom {{specialization}} alebo opíšte svoje príznaky.",
+    "fileResponse": "Dostal som váš {{fileType}} o {{specialization}}. Ako vám s tým môžem pomôcť?",
+    "textResponse": "Ohľadom vášho dotazu o {{specialization}}: {{text}}. Tu je moja odborná rada...",
+    "image": "obrázok",
+    "document": "dokument"
+  },
+  "messageBubble": {
+    "doctorAI": "Lekár AI",
+    "you": "Vy",
+    "uploadedImage": "Nahraný obrázok",
+    "bytes": "B",
+    "kb": "KB",
+    "mb": "MB"
+  },
+  "userInput": {
+    "placeholder": "Napíšte správu alebo opíšte príznaky...",
+    "remove": "Odstrániť",
+    "fileSizeError": "Veľkosť súboru by mala byť menšia ako 5MB"
+  },
+"login": {
+    "title": "Vitajte späť",
+    "subtitle": "Prihláste sa a pokračujte v DoctorAI",
+    "email": "E-mail",
+    "emailPlaceholder": "Zadajte váš e-mail",
+    "password": "Heslo",
+    "passwordPlaceholder": "Zadajte vaše heslo",
+    "emailButton": "Prihlásiť sa",
+    "googleButton": "Pokračovať s Google",
+    "guestButton": "Pokračovať ako hosť",
+    "forgotPassword": "Zabudnuté heslo?",
+    "noAccount": "Nemáte účet?",
+    "signupLink": "Registrovať sa",
+    "or": "ALEBO",
+    "fillAllFields": "Vyplňte všetky polia",
+    "userNotFound": "Používateľ nebol nájdený",
+    "wrongPassword": "Nesprávne heslo",
+    "generalError": "Prihlásenie zlyhalo. Skúste to znova.",
+    "googleError": "Prihlásenie cez Google zlyhalo. Skúste to znova.",
+    "loading": "Prihlasovanie..."
+  },
+  "signup": {
+    "title": "Vytvoriť účet",
+    "subtitle": "Začnite s DoctorAI",
+    "displayName": "Zobrazované meno",
+    "displayNamePlaceholder": "Zadajte vaše meno",
+    "email": "E-mail",
+    "emailPlaceholder": "Zadajte váš e-mail",
+    "password": "Heslo",
+    "passwordPlaceholder": "Vytvorte heslo",
+    "confirmPassword": "Potvrďte heslo",
+    "confirmPasswordPlaceholder": "Zopakujte heslo",
+    "submitButton": "Registrovať sa",
+    "googleButton": "Pokračovať s Google",
+    "haveAccount": "Máte už účet?",
+    "loginLink": "Prihlásiť sa",
+    "or": "ALEBO",
+    "passwordMismatch": "Heslá sa nezhodujú",
+    "passwordLength": "Heslo musí mať aspoň 6 znakov",
+    "emailExists": "E-mail už existuje",
+    "invalidEmail": "Neplatná e-mailová adresa",
+    "weakPassword": "Heslo je príliš slabé",
+    "generalError": "Registrácia zlyhala. Skúste to znova.",
+    "googleError": "Registrácia cez Google zlyhala. Skúste to znova.",
+    "loading": "Vytváram účet..."
+  },
+  "common": {
+    "loading": "Načítava sa..."
+  },
+  "languages": {
+    "en": "Angličtina",
+    "sk": "Slovenčina"
+  }
+}

@@ -1,10 +1,14 @@
 export const SPECIALIZATIONS = [
-  'General Medicine',
+  'General Practice',
+  'Pediatrics',
   'Cardiology',
   'Dermatology',
-  'Pediatrics',
   'Neurology',
-  'Orthopedics'
+  'Orthopedics',
+  'Psychiatry',
+  'Endocrinology',
+  'Gastroenterology',
+  'Ophthalmology'
 ];
 
 export const ALLOWED_FILE_TYPES = [
