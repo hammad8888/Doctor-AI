@@ -1,242 +1,29 @@
-// import { useState } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
-// import { useAuth } from '../../context/AuthContext';
-// import { FcGoogle } from 'react-icons/fc';
-// import { FiX, FiMail, FiLock } from 'react-icons/fi';
-// import { useTranslation } from 'react-i18next';
-// import { motion } from 'framer-motion';
-
-// export default function Login() {
-//   const navigate = useNavigate();
-//   const { t } = useTranslation();
-//   const { loginWithGoogle, loginWithEmail, guestLogin } = useAuth();
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [error, setError] = useState('');
-//   const [loading, setLoading] = useState(false);
-
-//   const handleGoogleLogin = async () => {
-//     try {
-//       setLoading(true);
-//       await loginWithGoogle();
-//       navigate('/');
-//     } catch (err) {
-//       setError(t('login.googleError'));
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const handleGuestLogin = () => {
-//     guestLogin();
-//     navigate('/');
-//   };
-
-//   const handleEmailLogin = async (e) => {
-//     e.preventDefault();
-//     if (!email || !password) {
-//       setError(t('login.fillAllFields'));
-//       return;
-//     }
-
-//     try {
-//       setLoading(true);
-//       await loginWithEmail(email, password);
-//       navigate('/');
-//     } catch (err) {
-//       switch (err.code) {
-//         case 'auth/user-not-found':
-//           setError(t('login.userNotFound'));
-//           break;
-//         case 'auth/wrong-password':
-//           setError(t('login.wrongPassword'));
-//           break;
-//         default:
-//           setError(t('login.generalError'));
-//       }
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <motion.div
-//       initial={{ opacity: 0 }}
-//       animate={{ opacity: 1 }}
-//       className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
-//     >
-//       <motion.div 
-//         initial={{ y: 20, opacity: 0 }}
-//         animate={{ y: 0, opacity: 1 }}
-//         className="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg"
-//       >
-//         <div className="p-6 space-y-6">
-//           <div className="flex justify-between items-center">
-//             <h2 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-//               {t('login.title')}
-//             </h2>
-//             <button
-//               onClick={() => navigate('/')}
-//               className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full"
-//             >
-//               <FiX className="w-6 h-6" />
-//             </button>
-//           </div>
-
-//           {error && (
-//             <div className="p-3 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-100 rounded-lg">
-//               {error}
-//             </div>
-//           )}
-
-//           <form className="space-y-4" onSubmit={handleEmailLogin}>
-//             <div className="space-y-1">
-//               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-//                 {t('login.email')}
-//               </label>
-//               <div className="relative">
-//                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-//                   <FiMail className="h-5 w-5 text-gray-400" />
-//                 </div>
-//                 <input
-//                   type="email"
-//                   placeholder={t('login.emailPlaceholder')}
-//                   className="w-full pl-10 p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
-//                   value={email}
-//                   onChange={(e) => setEmail(e.target.value)}
-//                   required
-//                 />
-//               </div>
-//             </div>
-
-//             <div className="space-y-1">
-//               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-//                 {t('login.password')}
-//               </label>
-//               <div className="relative">
-//                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-//                   <FiLock className="h-5 w-5 text-gray-400" />
-//                 </div>
-//                 <input
-//                   type="password"
-//                   placeholder={t('login.passwordPlaceholder')}
-//                   className="w-full pl-10 p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
-//                   value={password}
-//                   onChange={(e) => setPassword(e.target.value)}
-//                   required
-//                 />
-//               </div>
-//             </div>
-
-//             <button
-//               type="submit"
-//               disabled={loading}
-//               className={`w-full p-3 rounded-lg transition-colors ${
-//                 loading
-//                   ? 'bg-gray-300 dark:bg-gray-600 cursor-not-allowed'
-//                   : 'bg-gradient-to-r from-blue-600 to-green-500 text-white hover:from-blue-700 hover:to-green-600'
-//               }`}
-//             >
-//               {loading ? t('login.loading') : t('login.emailButton')}
-//             </button>
-//           </form>
-
-//           <div className="relative">
-//             <div className="absolute inset-0 flex items-center">
-//               <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
-//             </div>
-//             <div className="relative flex justify-center">
-//               <span className="px-2 bg-white dark:bg-gray-800 text-sm text-gray-500">
-//                 {t('login.or')}
-//               </span>
-//             </div>
-//           </div>
-
-//           <div className="space-y-3">
-//             <button
-//               onClick={handleGoogleLogin}
-//               disabled={loading}
-//               className="w-full flex items-center justify-center gap-2 p-3 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-//             >
-//               <FcGoogle className="w-5 h-5" />
-//               {t('login.googleButton')}
-//             </button>
-
-//             <button
-//               onClick={handleGuestLogin}
-//               className="w-full p-3 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-//             >
-//               {t('login.guestButton')}
-//             </button>
-//           </div>
-
-//           <div className="text-center space-y-2">
-//             <Link 
-//               to="/forgot-password" 
-//               className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
-//             >
-//               {t('login.forgotPassword')}
-//             </Link>
-//             <p className="text-sm text-gray-600 dark:text-gray-400">
-//               {t('login.noAccount')}{' '}
-//               <Link to="/signup" className="text-blue-600 dark:text-blue-400 hover:underline">
-//                 {t('login.signupLink')}
-//               </Link>
-//             </p>
-//           </div>
-//         </div>
-//       </motion.div>
-//     </motion.div>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Login.jsx
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
-import { FiX, FiMail, FiLock } from 'react-icons/fi';
+import { FiX, FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import ForgotPassword from './ForgotPassword';
 
-export default function Login() {
-  const navigate = useNavigate();
+export default function Login({ onClose, onSwitchToSignup }) {
   const { t } = useTranslation();
   const { loginWithGoogle, loginWithEmail, guestLogin } = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const handleGoogleLogin = async () => {
     try {
       setLoading(true);
       await loginWithGoogle();
-      navigate('/');
+      onClose();
     } catch (err) {
-      setError(t('login.googleError'));
+      setError(t('Google Error'));
     } finally {
       setLoading(false);
     }
@@ -244,30 +31,30 @@ export default function Login() {
 
   const handleGuestLogin = () => {
     guestLogin();
-    navigate('/');
+    onClose();
   };
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     if (!email || !password) {
-      setError(t('login.fillAllFields'));
+      setError(t('Fill All Fields'));
       return;
     }
 
     try {
       setLoading(true);
       await loginWithEmail(email, password);
-      navigate('/');
+      onClose();
     } catch (err) {
       switch (err.code) {
         case 'auth/user-not-found':
-          setError(t('login.userNotFound'));
+          setError(t('User Not Found'));
           break;
         case 'auth/wrong-password':
-          setError(t('login.wrongPassword'));
+          setError(t('Wrong Password'));
           break;
         default:
-          setError(t('login.generalError'));
+          setError(t('General Error'));
       }
     } finally {
       setLoading(false);
@@ -275,132 +62,147 @@ export default function Login() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
-    >
-      <motion.div 
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg"
-      >
-        <div className="p-6 space-y-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-              {t('login.title')}
-            </h2>
-            <button
-              onClick={() => navigate('/')}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full"
-            >
-              <FiX className="w-6 h-6" />
-            </button>
-          </div>
+    <>
+      <AnimatePresence>
+        {showForgotPassword && (
+          <ForgotPassword onClose={() => setShowForgotPassword(false)} />
+        )}
+      </AnimatePresence>
 
-          {error && (
-            <div className="p-3 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-100 rounded-lg">
-              {error}
-            </div>
-          )}
-
-          <form className="space-y-4" onSubmit={handleEmailLogin}>
-            <div className="space-y-1">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('login.email')}
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                  <FiMail className="h-5 w-5 text-gray-400" />
+      {!showForgotPassword && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 20, opacity: 0 }}
+            className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-8 space-y-6">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+                    {t('Welcome Back')}
+                  </h2>
+                  <p className="text-gray-500 dark:text-gray-400 mt-1">
+                    {t('To Login')}
+                  </p>
                 </div>
-                <input
-                  type="email"
-                  placeholder={t('login.emailPlaceholder')}
-                  className="w-full pl-10 p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
+                <button
+                  onClick={onClose}
+                  className="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                  aria-label="Close"
+                >
+                  <FiX className="w-6 h-6" />
+                </button>
+              </div>
+
+              {error && (
+                <div className="p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300 rounded-lg flex items-center gap-2">
+                  <FiX className="flex-shrink-0" />
+                  {error}
+                </div>
+              )}
+
+              <form className="space-y-5" onSubmit={handleEmailLogin}>
+                <div className="space-y-4">
+                  <div className="relative">
+                    <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                      type="email"
+                      placeholder={t('Enter Email')}
+                      className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-blue-500 focus:ring-0 dark:bg-gray-800 dark:text-white transition-all"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className="relative">
+                    <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                      type="password"
+                      placeholder={t('Enter Password')}
+                      className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-blue-500 focus:ring-0 dark:bg-gray-800 dark:text-white transition-all"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className={`w-full flex items-center justify-center gap-2 py-4 px-6 rounded-xl transition-all ${
+                    loading
+                      ? 'bg-gray-100 dark:bg-gray-800 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-700 hover:to-blue-600'
+                  }`}
+                >
+                  <span className="font-semibold">
+                    {loading ? t('Loading') : t('Login')}
+                  </span>
+                  <FiArrowRight className="w-5 h-5" />
+                </button>
+              </form>
+
+              <div className="flex items-center gap-4">
+                <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
+                <span className="text-sm text-gray-400 dark:text-gray-500">
+                  {t('OR')}
+                </span>
+                <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={handleGoogleLogin}
+                  disabled={loading}
+                  className="flex items-center justify-center gap-2 p-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                >
+                  <FcGoogle className="w-5 h-5" />
+                  <span className="text-sm font-medium">Google</span>
+                </button>
+
+                <button
+                  onClick={handleGuestLogin}
+                  className="flex items-center justify-center gap-2 p-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                >
+                  <span className="text-sm font-medium">{t('Guest Mode')}</span>
+                </button>
+              </div>
+
+              <div className="text-center space-y-3">
+                <button
+                  onClick={() => setShowForgotPassword(true)}
+                  className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  {t('Forgot Password')}
+                </button>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {t("Don't have an account?")}{' '}
+                  <button
+                    onClick={() => {
+                      onClose();
+                      onSwitchToSignup();
+                    }}
+                    className="font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    {t('Sign up')}
+                  </button>
+                </p>
               </div>
             </div>
-
-            <div className="space-y-1">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('login.password')}
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                  <FiLock className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  type="password"
-                  placeholder={t('login.passwordPlaceholder')}
-                  className="w-full pl-10 p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className={`w-full p-3 rounded-lg transition-colors ${
-                loading
-                  ? 'bg-gray-300 dark:bg-gray-600 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-blue-600 to-green-500 text-white hover:from-blue-700 hover:to-green-600'
-              }`}
-            >
-              {loading ? t('login.loading') : t('login.emailButton')}
-            </button>
-          </form>
-
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
-            </div>
-            <div className="relative flex justify-center">
-              <span className="px-2 bg-white dark:bg-gray-800 text-sm text-gray-500">
-                {t('login.or')}
-              </span>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            <button
-              onClick={handleGoogleLogin}
-              disabled={loading}
-              className="w-full flex items-center justify-center gap-2 p-3 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-            >
-              <FcGoogle className="w-5 h-5" />
-              {t('login.googleButton')}
-            </button>
-
-            <button
-              onClick={handleGuestLogin}
-              className="w-full p-3 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-            >
-              {t('login.guestButton')}
-            </button>
-          </div>
-
-          <div className="text-center space-y-2">
-            <Link 
-              to="/forgot-password" 
-              className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
-            >
-              {t('login.forgotPassword')}
-            </Link>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              {t('login.noAccount')}{' '}
-              <Link to="/signup" className="text-blue-600 dark:text-blue-400 hover:underline">
-                {t('login.signupLink')}
-              </Link>
-            </p>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
+          </motion.div>
+        </motion.div>
+      )}
+    </>
   );
 }

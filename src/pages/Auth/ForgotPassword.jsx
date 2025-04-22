@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 import { FiX, FiMail, FiCheckCircle } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { useAuth } from '../../context/AuthContext';
 
-export default function ForgotPassword() {
-  const navigate = useNavigate();
+export default function ForgotPassword({ onClose }) {
   const { t } = useTranslation();
   const { resetPassword } = useAuth();
+
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -17,25 +16,25 @@ export default function ForgotPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) {
-      setError(t('forgotPasswordEmailRequired'));  
+      setError(t('Email Required'));
       return;
     }
 
     try {
       setLoading(true);
       await resetPassword(email);
-      setMessage(t('Password Reset Check Your Email'));  // Updated
+      setMessage(t('Check Your Email'));
       setError('');
     } catch (err) {
       switch (err.code) {
         case 'auth/user-not-found':
-          setError(t('User Not Found'));  // Updated
+          setError(t('User Not Found'));
           break;
         case 'auth/invalid-email':
-          setError(t('Invalid Email'));  // Updated
+          setError(t('Invalid Email'));
           break;
         default:
-          setError(t('General Error'));  // Updated
+          setError(t('General Error'));
       }
     } finally {
       setLoading(false);
@@ -48,7 +47,7 @@ export default function ForgotPassword() {
       animate={{ opacity: 1 }}
       className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
     >
-      <motion.div 
+      <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         className="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg"
@@ -56,10 +55,10 @@ export default function ForgotPassword() {
         <div className="p-6 space-y-6">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-              {t('Forgot Password')}  
+              {t('Reset Password')}
             </h2>
             <button
-              onClick={() => navigate('/')}
+              onClick={onClose}
               className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full"
             >
               <FiX className="w-6 h-6" />
@@ -81,7 +80,7 @@ export default function ForgotPassword() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-1">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('Enter Email')} 
+                  {t('Enter Email')}
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -89,7 +88,7 @@ export default function ForgotPassword() {
                   </div>
                   <input
                     type="email"
-                    placeholder={t('Enter Your Email')}  
+                    placeholder={t('Enter Your Email')}
                     className="w-full pl-10 p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -107,19 +106,13 @@ export default function ForgotPassword() {
                     : 'bg-gradient-to-r from-blue-600 to-green-500 text-white hover:from-blue-700 hover:to-green-600'
                 }`}
               >
-                {loading ? t('Loading') : t('Submit')}  
+                {loading ? t('loading') : t('Submit')}
               </button>
             </form>
           )}
-
-          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-            
-            <Link to="/login" className="text-blue-600 dark:text-blue-400 hover:underline">
-              {t('Remember Password')}  
-            </Link>
-          </p>
         </div>
       </motion.div>
     </motion.div>
   );
 }
+
